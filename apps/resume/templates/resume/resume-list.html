@@ -33,11 +33,14 @@ Template for viewing a resume.
 
     section.resume-item {
       margin-top: 36px;
+
       position: relative;
     }
 
     section.resume-item > a.btn {
-      position: absolute;
+      position: relative;
+      float: right;
+      margin-left: 20px;
       right: 0;
       top: 0;
     }
@@ -51,26 +54,22 @@ Template for viewing a resume.
 
 {% block content %}
   <div class="container content-section resume-container">
-     <div class="header-center-container">
-      <div class="header-container">
-        <h1>Resume : {{ resume_name }}</h1>
-      </div>
-    </div>
     <div class="header-center-container">
       <div class="header-container">
-        <h3>{{ request.user.first_name }} {{ request.user.last_name }} {{ request.user.email }} </h3>
+        <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+        <h3>{{ request.user.email }}</h3>
       </div>
     </div>
-    {% for resume_item in resume_items %}
+
+    {% for resume in resumes %}
       <section class="resume-item">
-        <h3>{{ resume_item.title }}</h3>
-        <h4>{{ resume_item.company }}</h4>
-        <h4>{{ resume_item.start_date | date:"M Y"}} - {% if resume_item.end_date %}{{ resume_item.end_date | date:"M Y"}}{% else %}Present{% endif %}</h4>
-        {% if resume_item.description %}<p>{{ resume_item.description }}</p>{% endif %}
-        <a class="btn btn-primary" href="/resume/item/edit/{{ resume_item.id }}/">Edit</a>
+        <h3>{{ resume.name }}</h3>
+        <span>{{ resume.resumeitem_set.count }} Items</span>
+        <a class="btn btn-primary" href="/resume/{{ resume.id }}/rename">Rename</a>
+        <a class="btn btn-primary" href="/resume/{{ resume.id }}">View</a>
       </section>
     {% endfor %}
 
-    <a class="btn btn-success" href="/resume/{{ resume_id }}/item/create/">Add New Item</a>
+    <a class="btn btn-success" href="/resume/create/">Add New Resume</a>
   </div>
 {% endblock %}
