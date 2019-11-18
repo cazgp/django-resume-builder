@@ -37,13 +37,13 @@ Template for viewing a resume.
       position: relative;
     }
 
-    section.resume-item > a.btn {
+    section.resume-item > a.btn-success {
       position: absolute;
       right: 0;
       top: 0;
     }
 
-    div.resume-container > a.btn {
+    div.resume-container > a.btn-success {
       margin-top: 24px;
       margin-bottom: 24px;
     }
@@ -54,22 +54,25 @@ Template for viewing a resume.
   <div class="container content-section resume-container">
     <div class="header-center-container">
       <div class="header-container">
-        <h1>{{ resume.name }}</h1>
+        <h1>{{ request.user.first_name }} {{ request.user.last_name }}</h1>
+        <h3>{{ request.user.email }}</h3>
       </div>
     </div>
-  </div>
 
-  <div class="container content-section resume-container">
-    {% for resume_item in resume_items %}
-      <section class="resume-item">
-        <h3>{{ resume_item.title }}</h3>
-        <h4>{{ resume_item.company }}</h4>
-        <h4>{{ resume_item.start_date | date:"M Y"}} - {% if resume_item.end_date %}{{ resume_item.end_date | date:"M Y"}}{% else %}Present{% endif %}</h4>
-        {% if resume_item.description %}<p>{{ resume_item.description }}</p>{% endif %}
-        <a class="btn btn-primary" href="{% url 'resume-item-edit' resume.id resume_item.id %}">Edit</a>
-      </section>
+    <h2>Resumes</h2>
+    {% for resume in resumes %}
+      <div class="row resume-item">
+          <div class="col-sm-3 font-weight-bold">{{ resume.name }}</div>
+          <div class="col-sm-3 font-weight-bold">{{ resume.item_count }} item{{ resume.item_count|pluralize }}</div>
+          <div class="col-sm-3">
+              <a class="btn btn-primary" href="{% url 'resume-view' resume.id %}">View</a>
+          </div>
+          <div class="col-sm-3">
+              <a class="btn btn-default" href="{% url 'resume-edit' resume.id %}">Rename</a>
+          </div>
+        </div>
     {% endfor %}
 
-    <a class="btn btn-success" href="{% url 'resume-item-create' resume.id %}">Add New Item</a>
+    <a class="btn btn-success" href="{% url 'resume-create' %}">Create New Resume</a>
   </div>
 {% endblock %}

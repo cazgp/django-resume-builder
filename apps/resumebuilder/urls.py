@@ -29,18 +29,46 @@ urlpatterns = [
 
     path(r'', RedirectView.as_view(pattern_name='resume')),
 
-    path(r'resume/', resume_views.resume_view, name='resume'),
+    #########
+    # RESUMES
+    #########
+    path(r'resume/', resume_views.resumes, name='resume'),
     path(
-        r'resume/item/edit/<int:resume_item_id>/',
+        r'resume/<int:resume_id>',
+        resume_views.resume_view,
+        name='resume-view'
+    ),
+    path(
+        r'resume/create/',
+        resume_views.resume_create_view,
+        name='resume-create'
+    ),
+    path(
+        r'resume/edit/<int:resume_id>/',
+        resume_views.resume_edit_view,
+        name='resume-edit'
+    ),
+
+    ##############
+    # RESUME ITEMS
+    ##############
+
+    # having resume_id and resume_item_id is redundant.
+    # it does, however, make the URLs consistent.
+    path(
+        r'resume/<int:resume_id>/item/edit/<int:resume_item_id>/',
         resume_views.resume_item_edit_view,
         name='resume-item-edit'
     ),
     path(
-        r'resume/item/create/',
+        r'resume/<int:resume_id>/item/create/',
         resume_views.resume_item_create_view,
         name='resume-item-create'
     ),
 
+    #######
+    # USERS
+    #######
     path(r'user/', user_views.account_edit_view, name='account-edit'),
     path(
         r'create-account/',

@@ -111,7 +111,7 @@ Base form template for creating and editing resume items.
               <button type="submit" class="btn btn-primary">
                 {% block resume_item_submit_button_text %}{% endblock %}
               </button>
-              <a class="btn btn-default" href="{% url 'resume' %}">Back</a>
+              <a class="btn btn-default" href="{% url 'resume-view' resume.id %}">Back</a>
 
               {% block resume_item_additional_buttons %}{% endblock %}
             </div>
