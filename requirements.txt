@@ -1,4 +1,6 @@
 # TODO requirements/test.txt
 beautifulsoup4
 Django>=2.2,<2.3
+django-extensions
 pycodestyle>=2.5,<2.6
+pygraphviz

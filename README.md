@@ -23,3 +23,12 @@ This is because it sets up all the ports and volumes for us, not because we run 
 
 ## Code style
 This repository follows the [PEP8](https://www.python.org/dev/peps/pep-0008/) standard. `pycodestyle apps/` should produce no warnings.
+
+## Testing
+`docker-compose run web python manage.py test` or `./manage.py test`
+
+## Architectural Decisions
+The architectural decisions can be found in the `architecture.tex` document.
+Compile with `pandoc -o architecture.pdf architecture.md`.
+
+The graph can be retrieved with: `./manage.py graph_models resume auth -I Resume,ResumeItem,User -g -o model.png`
